@@ -34,6 +34,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/task', 'TaskController@store');
     Route::delete('/task/{task}', 'TaskController@destroy');
 
+
+    Route::get('/import-excel', 'ExcelController@index');
+    Route::post('/import-excel', 'ExcelController@store');
+
     Route::auth();
 
 });
