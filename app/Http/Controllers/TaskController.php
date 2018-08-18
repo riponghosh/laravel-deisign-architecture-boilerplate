@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Task;
 use App\Repositories\TaskRepository;
 use App\Repositories\TaskRepositioryTest;
+use App\Formatter\Task\TaskFormatter;
 
 class TaskController extends Controller
 {
@@ -41,8 +42,11 @@ class TaskController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index(Request $request,TaskFormatter $taskFormatter)
     {
+        $all_task=$this->tasks->forUser($request->user());
+        $current=$taskFormatter->dataFormat($all_task);
+        return $current[0]->name;
         return view('tasks.index', [
             'tasks' => $this->tasks->forUser($request->user()),
         ]);
